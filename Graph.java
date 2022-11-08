@@ -1,13 +1,14 @@
 import java.util.*;
 
 public class Graph {
-    private ArrayList<Node> nodes;
     private Edge[][] edges;
 
     public Graph(Set<Edge> edges, Set<Node> nodes) {
-        TreeSet<Node> orderedNodes = new TreeSet<Node>(nodes);
-        int size = orderedNodes.last().getId() + 1;
+        int max = 0;
+        for (Node node : nodes)
+            max = Math.max(max, node.getId());
 
+        int size = max + 1;
         this.edges = new Edge[size][size];
 
         for (Edge edge : edges) {
@@ -15,8 +16,6 @@ public class Graph {
             int y = edge.getEnd().getId();
             this.edges[x][y] = edge;
         }
-
-        nodes = orderedNodes;
     }
 
     public Set<Node> getAdjacent(Node node) {
@@ -24,11 +23,14 @@ public class Graph {
         int id = node.getId();
 
         for (int row = 0; row < edges.length; row++) {
-            for (int col = 0; col < edges[col].length; col++) {
+            for (int col = 0; col < edges[row].length; col++) {
                 if (row != id && col != id)
                     continue;
 
                 Edge edge = edges[row][col];
+                if (edge == null)
+                    continue;
+
                 Node start = edge.getStart();
                 Node end = edge.getEnd();
                 Node adjacentNode = start.getId() == id ? end : start;

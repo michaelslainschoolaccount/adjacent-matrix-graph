@@ -2,8 +2,8 @@
 
 ## Info
 
-Author: Michael Slain
-Acknowledgements: Mr. Kuszmaul
+-   Author: Michael Slain
+-   Acknowledgements: Mr. Kuszmaul
 
 ## Documentation
 
